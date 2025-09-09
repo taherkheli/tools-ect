@@ -8,7 +8,7 @@ function assignGlobalValues(createDyanamicCol: any, globalData: any, description
          globalData.forEach((globalDataItem: any) => {
             const relatedItems =
                descriptionMap.get(globalDataItem.Global_ID) || [];
-            
+
             relatedItems.forEach((relatedItem: any) => {
                 if (relatedItem.ID.includes(column)) {
                   globalDataItem[column] = relatedItem.Display_Value;
@@ -20,7 +20,7 @@ function assignGlobalValues(createDyanamicCol: any, globalData: any, description
    }
 };
 
-function getDyanamicColumn(dataStore: any) {
+function getDynamicColumn(dataStore: any) {
    const columns: any = [];
    let GlobalData: any = [];
    dataStore.forEach((item: any) => {
@@ -41,7 +41,7 @@ function getDyanamicColumn(dataStore: any) {
 };
 
 function analyzeGlobalData(dataStore: any) {
-   let [createDyanamicCol, globalData] = getDyanamicColumn(dataStore);
+   let [createDynamicCol, globalData] = getDynamicColumn(dataStore);
    const descriptionMap = new Map();
    // Populate the description map
    globalData.forEach((item: any) => {
@@ -50,9 +50,9 @@ function analyzeGlobalData(dataStore: any) {
       }
       descriptionMap.get(item.Global_ID).push(item);
    });
-   
-   createDyanamicCol = assignGlobalValues(
-      createDyanamicCol,
+
+   createDynamicCol = assignGlobalValues(
+      createDynamicCol,
       globalData,
       descriptionMap,
    );
@@ -67,11 +67,11 @@ const result = analyzeGlobalData(dataStore);
 const end = Date.now();
 const duration = end - start;
 
-if(JSON.stringify(result) === JSON.stringify(expectedResult) ) 
+if(JSON.stringify(result) === JSON.stringify(expectedResult) )
 {
    console.log("Result is as expected");
 }
-else 
+else
 {
     console.error("Result is NOT as expected");
 }
