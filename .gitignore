@@ -1,0 +1,27 @@
+/node_modules/
+/build/
+/test-reports/
+/test-results/
+/test-results-*
+/tests/coverage-report
+.local-browsers/
+/.dev_profile*
+.DS_Store
+*.swp
+*.pyc
+### VisualStudioCode ###
+.vscode/*
+# !.vscode/settings.json
+# !.vscode/tasks.json
+!.vscode/launch.json
+# !.vscode/extensions.json
+.idea
+/src/generated/*
+lib/
+drivers/
+.android-sdk/
+.gradle/
+nohup.out
+.trace
+.tmp
+.env

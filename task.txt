@@ -1,0 +1,99 @@
+Inside index.ts is a modified version of an original pull request that was declined. 
+The problem with this code is first of all readability, and second the performence. 
+Modifications were made to meet our requirements, so this task is only to observe the applicant's way of thinking.
+
+Explanation of the code: 
+data.ts: 
+A data provider, created for this test only.
+
+index.ts: 
+The dataformat that goes into this application, is in an array of objects. 
+Is was made this way, in order to be useable directly in DevExtreme (React Component Library) DataTree Component.
+
+The data (dataStore) contains a flattened version of a nested JSON object:
+dataStore = [
+    { Key_ID = 1, Head_ID = -1, ID="...", ... },
+    { Key_ID = 2, Head_ID = 1, ID="...", ... },
+    { Key_ID = 3, Head_ID = 2, ID="...", ... },
+    { Key_ID = 4, Head_ID = 1, ID="...", ... },
+    { Key_ID = 5, Head_ID = 4, ID="...", ... }
+]
+
+JSON object:
+{ 
+    "Children": 
+    [
+        {
+            "Description": "ABC1",
+            "Display_Value: "ABC1",
+            "Children": 
+            [
+                {
+                    "Global_ID": "global_abcd",
+                    "Display_Value: "True",
+                    "Children": []
+                }
+            ]
+        },
+        {
+            "Description": "ABC2",
+            "Display_Value: "ABC2",
+            "Children": 
+            [
+                {
+                    "Global_ID": "global_abcd",
+                    "Display_Value: "False",
+                    "Children": []
+                }
+            ]
+        },
+    ]
+}
+
+The code's task, is to analyse all global IDs.
+For all identical global IDs, it must append the Display_Value of that object to all the others.
+This way, when analyzeGlobalData has been called, it will be easy to display global inconsistencies.
+
+Output after analyzeGlobalData: 
+{ 
+    "Children": 
+    [
+        {
+            "Description": "ABC1",
+            "Display_Value: "ABC1",
+            "Children": 
+            [
+                {
+                    "Global_ID": "global_abcd",
+                    "Display_Value: "True",
+                    "ABC2": "True",
+                    "Children": []
+                }
+            ]
+        },
+        {
+            "Description": "ABC2",
+            "Display_Value: "ABC2",
+            "Children": 
+            [
+                {
+                    "Global_ID": "global_abcd",
+                    "Display_Value: "False",
+                    "ABC1": "True"
+                    "Children": []
+                }
+            ]
+        },
+    ]
+}
+
+Explanation of the task: 
+As seen from the execution time, it takes a long time to execute the analyzeGlobalData function.
+The test is setup to create a set 500000 different objects, which is not far off from large real systems.
+
+The task is to modify the code to archive multiple goals: 
+1: Increase the readability
+2: Decrease execution time
+
+You are allowed to modify in both data.ts and index.ts;
+the only requirement is that the final data is delivered in the flattened version
