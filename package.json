@@ -2,9 +2,12 @@
     "name": "test_code",
     "description": "Test code for job application",
     "scripts": {
-        "start": "tsc && node dist/index.js"
+        "start": "tsc && node dist/index.js",
+        "test": "vitest"
     },
     "devDependencies": {
-        "typescript": "^5.2.2"
+        "@types/node": "^24.3.1",
+        "typescript": "^5.2.2",
+        "vitest": "^3.2.4"
     }
 }
