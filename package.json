@@ -5,6 +5,7 @@
         "start": "tsc && node dist/index.js",
         "test": "vitest"
     },
+     "type": "module",
     "devDependencies": {
         "@types/node": "^24.3.1",
         "typescript": "^5.2.2",
