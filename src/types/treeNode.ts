@@ -4,6 +4,6 @@ export interface TreeNode {
   ID: string;             //name
   Display_Value: string;  //display value
   Description: string;    //description
-  Addr?: string;          //Arcnet address
+  Addr?: string;          //arcnet address
   Global_ID?: string;     //global id???
 }
