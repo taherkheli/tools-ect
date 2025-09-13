@@ -1,9 +1,9 @@
 export interface TreeNode {
   Key_ID: number;         //id
-  Head_ID: number;        //parent id
+  Head_ID: number;        //parentId
   ID: string;             //name
-  Display_Value: string;  //display value
+  Display_Value: string;  //displayValue
   Description: string;    //description
-  Addr?: string;          //arcnet address
-  Global_ID?: string;     //global id???
+  Addr?: string;          //arcnetAddress
+  Global_ID?: string;     //globalId
 }

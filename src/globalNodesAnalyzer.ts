@@ -25,13 +25,53 @@ import { TreeNode } from "./types/treeNode";
 export function analyzeGlobalNodes(dataStore: TreeNode[]) {
   const columnHeaders = getColumnHeaders(dataStore);
   const nodesWithGlobalIds = getNodesWithGlobalIds(dataStore);
-  // console.log("getColumnHeaders returned : ", columnHeaders);
-  // console.log("getNodesWithGlobalIds returned : ", nodesWithGlobalIds);
+
+  // given a Global_ID, look up all nodes with that globalId i.e. group nodes by their Global_ID
+  const globalIdNodesMap = new Map<string, TreeNode[]>();
+
+  for (const node of nodesWithGlobalIds) {
+      const globalId = node.Global_ID!;
+      if (!globalIdNodesMap.has(globalId)) {
+        globalIdNodesMap.set(globalId, []);
+      }
+      globalIdNodesMap.get(globalId)!.push(node);
+  }
 
   /*TODO: SYNCED uptil here*/
-  // continue here ...
+  // console.log(nodesMap);
+  // console.log(nodesMap.size);
 
 
+   var x = assignGlobalValues(
+      columnHeaders,
+      nodesWithGlobalIds,
+      globalIdNodesMap,
+   );
 
   return nodesWithGlobalIds;
+};
+
+
+
+
+
+
+
+function assignGlobalValues(columnHeaders: any, nodesWithGlobalIds: any, globalIdNodesMap: any) {
+   if (columnHeaders) {
+      // Iterate over columns and GlobalData
+      columnHeaders.forEach((column: any) => {
+         nodesWithGlobalIds.forEach((globalDataItem: any) => {
+            const relatedItems =
+               globalIdNodesMap.get(globalDataItem.Global_ID) || [];
+
+            relatedItems.forEach((relatedItem: any) => {
+                if (relatedItem.ID.includes(column)) {
+                  globalDataItem[column] = relatedItem.Display_Value;
+                }
+            });
+         });
+      });
+      return columnHeaders;
+   }
 };

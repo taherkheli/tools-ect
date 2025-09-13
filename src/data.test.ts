@@ -4,6 +4,7 @@ import { writeFileSync, readFileSync, existsSync, unlinkSync } from 'fs';
 import { resolve } from 'path';
 import { TreeNode } from './types/treeNode';
 import { analyzeGlobalNodes } from './globalNodesAnalyzer';
+import { expectedResult } from './expectedResult';
 
 describe('TreeNode Array Test', () => {
   const logPath = resolve(__dirname, 'log.log');
@@ -40,8 +41,30 @@ describe('TreeNode Array Test', () => {
 
     it('top level nodes should be identified', () => {
 
-      analyzeGlobalNodes(nodes);
+      // Run the code and check the output and execution time
+      console.log("Running the code, this might take a while...");
+      const start = Date.now();
+      const result = analyzeGlobalNodes(nodes);
+      const end = Date.now();
+      const duration = end - start;
 
+      if(JSON.stringify(result) === JSON.stringify(expectedResult) )
+      {
+        console.log("Result is as expected");
+      }
+      else
+      {
+          console.error("Result is NOT as expected");
+      }
+
+      if(duration < 10000) // Success is under 10 seconds
+      {
+        console.log(`Success: Execution time ${duration} ms`);
+      }
+      else
+      {
+          console.error(`Failure: Execution time ${duration} ms exceeds 10 seconds`);
+      }
 
 
 
@@ -51,37 +74,6 @@ describe('TreeNode Array Test', () => {
     // writeFileSync(logPath, jsonData);
     // expect(existsSync(logPath)).toBe(true);
   });
-
-
-
-
-
-
-  /* fix it at the end when all works*/
-
-    // console.log("Running the code, this might take a while...");
-    // const result = analyzeGlobalData(dataStore);
-
-
-    // if(JSON.stringify(result) === JSON.stringify(expectedResult) )
-    // {
-    //    console.log("Result is as expected");
-    // }
-    // else
-    // {
-    //     console.error("Result is NOT as expected");
-    // }
-
-    // if(duration < 10000) // Success is under 10 seconds
-    // {
-    //    console.log(`Success: Execution time ${duration} ms`);
-    // }
-    // else
-    // {
-    //     console.error(`Failure: Execution time ${duration} ms exceeds 10 seconds`);
-    // }
-
-
 
 
 
